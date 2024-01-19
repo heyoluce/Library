@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        hr {
+            margin-top: 20px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<p th:text="${book.getId() + ', ' + book.getName()  + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
+<br>
+
+<div th:if="${owner}" class="form-container">
+    <span>Book now: </span> <span th:text="${owner.name}">Owner name</span>
+    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.id})}">
+        <input type="submit" value="RELEASE">
+    </form>
+</div>
+
+<div th:if="${people}" class="form-container">
+    <span>This book is free, who should assign it to?</span>
+    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.id})}">
+        <label for="person">Select a person</label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person: ${people}" th:value="${person.id}" th:text="${person.name}">
+                Person
+            </option>
+        </select>
+        <input type="submit" value="SELECT"/>
+    </form>
+</div>
+
+<hr>
+
+<div class="form-container">
+    <form th:action="@{/books/{id}/edit(id=${book.id})}">
+        <input type="submit" value="EDIT">
+    </form>
+</div>
+
+<div class="form-container">
+    <form th:method="DELETE" th:action="@{/books/{id}(id=${book.id})}">
+        <input type="submit" value="DELETE">
+    </form>
+</div>
+
+</body>
+</html>

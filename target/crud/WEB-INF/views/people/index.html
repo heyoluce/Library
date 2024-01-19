@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .person {
+            margin-bottom: 10px;
+        }
+
+        hr {
+            margin-top: 20px;
+        }
+
+        .new-person-link {
+            display: block;
+            margin-top: 20px;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+<h2>People List</h2>
+
+<div th:each="person: ${people}" class="person">
+    <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.name} + ', ' + ${person.dateOfBirth}">user</a>
+</div>
+<br>
+<hr>
+
+<a href="/people/new" class="new-person-link">Create a new person</a>
+
+</body>
+</html>

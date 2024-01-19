@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        hr {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<p th:text="${person.getName() + ', ' + person.getDateOfBirth()}"></p>
+<br>
+
+<div th:if="${not #lists.isEmpty(books)}">
+    <b>Books</b>
+    <br>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Year</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td>
+                <span th:text="${book.name}" th:style="${book.expired} ? 'color: red' : 'color: black'"></span>
+            </td>
+            <td>
+                <span th:text="${book.author}" th:style="${book.expired} ? 'color: red' : 'color: black'"></span>
+            </td>
+            <td>
+                <span th:text="${book.year}" th:style="${book.expired} ? 'color: red' : 'color: black'"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${#lists.isEmpty(books)}">
+    <br>
+    <p>Person has not taken any books yet</p>
+</div>
+
+<hr>
+
+<div class="form-container">
+    <form th:action="@{'/people/' + ${person.id} + '/edit'}" method="get">
+        <input type="submit" value="EDIT">
+    </form>
+</div>
+
+<div class="form-container">
+    <form th:method="DELETE" th:action="@{'/people/' + ${person.id}}">
+        <input type="submit" value="DELETE">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        hr {
+            margin-top: 20px;
+        }
+
+        .book-container {
+            margin-bottom: 10px;
+        }
+
+        .new-book-link {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        .new-book-link:hover {
+            text-decoration: underline;
+        }
+
+        .search-books-link {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        .search-books-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Books List</h2>
+
+<div th:each="book: ${books}" class="book-container">
+    <a th:href="@{/books/{id}(id=${book.id})}" th:text="${book.name} + ', ' + ${book.author} + ', ' + ${book.year}">book</a>
+</div>
+
+<hr>
+
+<a href="/books/new" class="new-book-link">Add a new book</a>
+
+<a href="/books/search" class="search-books-link">Search Books</a>
+
+</body>
+</html>

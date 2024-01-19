@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .book-container {
+            margin-bottom: 20px;
+        }
+
+        hr {
+            margin-top: 10px;
+        }
+
+        .free-book {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<form action="/books/search" method="get">
+    <label for="prefix">Search by Name:</label>
+    <input type="text" id="prefix" name="prefix" placeholder="Enter name">
+    <button type="submit">Search</button>
+</form>
+
+<div th:each="book: ${books}" class="book-container">
+    <p th:text="${book.name + ', ' + book.author + ', ' + book.year}"></p>
+    <div th:if="${book.person != null}">
+        <span>This book is currently with:</span>
+        <span th:text="${book.person.name}"></span>
+    </div>
+    <div th:if="${book.person == null}" class="free-book">
+        This book is free
+    </div>
+    <hr>
+</div>
+
+</body>
+</html>
